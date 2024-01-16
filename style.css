@@ -1,0 +1,52 @@
+body {
+    background-color: #9400D3;
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3em; /* Ajusta el tamaño de la letra según tus preferencias */
+    white-space: nowrap; /* Evita el salto de línea */
+    animation: move 20s linear infinite; /* Ajusta la duración según tus preferencias */
+}
+
+@keyframes move {
+    0%, 100% {
+        transform: translateY(0) translateX(0); /* Desplazamiento inicial y final al centro */
+    }
+    10% {
+        transform: translateX(-45vw); /* Desplazamiento hacia el extremo izquierdo central en el 10% de la animación */
+    }
+    25% {
+        transform: translateY(-45vh); /* Desplazamiento hacia arriba en el 25% de la animación */
+    }
+    40% {
+        transform: translateY(45vh); /* Desplazamiento hacia abajo en el 40% de la animación */
+    }
+    50% {
+        transform: translateX(45vw); /* Desplazamiento hacia el extremo derecho central en el 50% de la animación */
+    }
+    65% {
+        transform: translateY(-45vh); /* Desplazamiento hacia arriba en el 65% de la animación */
+    }
+    80% {
+        transform: translateY(45vh); /* Desplazamiento hacia abajo en el 80% de la animación */
+    }
+    90% {
+        transform: translateX(-45vw); /* Desplazamiento hacia el extremo izquierdo central en el 90% de la animación */
+    }
+}
+
+/* Estilos específicos para dispositivos móviles */
+@media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 1.5em;
+    }
+}
