@@ -11,13 +11,23 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     white-space: nowrap;
-    animation: move 20s linear infinite;
+    animation: move 20s linear infinite, colores 2s linear infinite; /* Ambas animaciones con la misma duración y ciclo infinito */
 }
+/*.colores { 
+    
+    background-color: yellow;
+    animation-name: colores;
+    animation-duration: 2s;
+    animation-iteration-count: infinite; /* Agregado para repetir infinitamente */*/
 
-.animatedTitle {
+
+
+h1{
     font-size: 4em;
     text-align: center;
     color: black;
+    animation: voltear; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s; /* don't forget to set a duration! */
 }
 
 @keyframes move {
@@ -47,9 +57,19 @@ body {
     }
 }
 
+
+@keyframes colores { 
+                   0%{background-color: aqua;}
+                   25%{background-color: brown;}
+                   50%{background-color:red;}
+                   70%{background-color: darkgreen;}
+                   80%{background-color: rgb(3, 255, 3);}
+                   90%{background-color: rgb(228, 253, 0);}
+                   100%{background-color: rgb(231, 231, 231);}
+}
 /* Estilos específicos para dispositivos móviles */
 @media only screen and (max-width: 600px) {
-    .animatedTitle {
+    .desplazamiento {
         font-size: 1.5em;
     }
 }
