@@ -10,24 +10,14 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    white-space: nowrap;
+   
     animation: move 20s linear infinite, colores 2s linear infinite; /* Ambas animaciones con la misma duración y ciclo infinito */
 }
-/*.colores { 
-    
-    background-color: yellow;
-    animation-name: colores;
-    animation-duration: 2s;
-    animation-iteration-count: infinite; /* Agregado para repetir infinitamente */*/
 
 
 
-h1{
-    font-size: 4em;
-    text-align: center;
-    color: black;
-    animation: voltear; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 2s; /* don't forget to set a duration! */
+animate__flip{
+
 }
 
 @keyframes move {
@@ -70,6 +60,6 @@ h1{
 /* Estilos específicos para dispositivos móviles */
 @media only screen and (max-width: 600px) {
     .desplazamiento {
-        font-size: 1.5em;
+        font-size: 0.5em;
     }
 }
