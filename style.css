@@ -16,7 +16,12 @@ body {
 
 
 
-animate__flip{
+h1{
+    font-size: 1rem;
+   
+    animation: flip;
+    animation-duration: 4s;
+    animation-iteration-count: infinite; /* Repetir cada 10 segundos */
 
 }
 
@@ -28,19 +33,19 @@ animate__flip{
         transform: translateX(-45vw);
     }
     25% {
-        transform: translateY(-45vh);
+        transform: translateY(-40vh);
     }
     40% {
-        transform: translateY(45vh);
+        transform: translateY(40vh);
     }
     50% {
-        transform: translateX(45vw);
+        transform: translateX(5vw);
     }
     65% {
         transform: translateY(-45vh);
     }
     80% {
-        transform: translateY(45vh);
+        transform: translateY(25vh);
     }
     90% {
         transform: translateX(-45vw);
@@ -58,7 +63,7 @@ animate__flip{
                    100%{background-color: rgb(231, 231, 231);}
 }
 /* Estilos específicos para dispositivos móviles */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 400px) {
     .desplazamiento {
         font-size: 0.5em;
     }
