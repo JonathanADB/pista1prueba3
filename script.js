@@ -1,4 +1,6 @@
 "use strict"
+
+document.getElementById("miAudio").play();
 //fondo matrix
 let canvas = document.querySelector("canvas");
 
@@ -7,7 +9,7 @@ let width = canvas.width = window.innerWidth;
 let height = canvas.height = window.innerHeight;
 let str = ["B", " ", "I", " ", "L"," ", "B"," ", "O"," ", "S"," ", "T"," ", "A"," ", "C", "", "K"];
 let matrix = str.sort();
-let font = 5;
+let font = 10;
 let col = width / font;
 let arr = [];
 
@@ -19,7 +21,7 @@ const draw = () => {
     ctx.fillStyle = "rgba(0,0,0,0.05)";
     ctx.fillRect(0, 0, width, height);
     ctx.fillStyle = "#9400D3"; /* #4B0082 - #0000FF - #00FF00 - #FFFF00 - #FF7F00 - #FF0000 */
-    ctx.font = `$(font)px system-iu`;
+    ctx.font = `${font}px system-ui`;
 
     for(let i = 0; i < arr.length; i++) {
         let txt = matrix[Math.floor(Math.random() * matrix.length)];
