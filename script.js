@@ -1,42 +1,61 @@
-"use strict"
+ "use strict"
+ // Espera a que el documento esté completamente cargado
+document.addEventListener("DOMContentLoaded", function() {
+    // Inicia la animación del canvas automáticamente
+    startMatrixAnimation();
 
-document.getElementById("miAudio").play();
-//fondo matrix
-let canvas = document.querySelector("canvas");
+    // Reproduce el audio cuando esté disponible y cargado
+    let miAudio = new Audio("galeria/jm_fx_matrix-sound-01-19778.mp3");
+    miAudio.loop = true;
+    miAudio.preload = "auto";
 
-let ctx = canvas.getContext("2d"); 
-let width = canvas.width = window.innerWidth;
-let height = canvas.height = window.innerHeight;
-let str = ["B", " ", "I", " ", "L"," ", "B"," ", "O"," ", "S"," ", "T"," ", "A"," ", "C", "", "K"];
-let matrix = str.sort();
-let font = 10;
-let col = width / font;
-let arr = [];
+    miAudio.addEventListener("canplaythrough", function() {
+        miAudio.play();
+    });
+});
 
-for(let i = 0; i < col; i++) {
-    arr[i] = 1;
-}
+function startMatrixAnimation() {
+    let canvas = document.querySelector("canvas");
+    let ctx = canvas.getContext("2d");
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    let str = ["B", " ", "I", " ", "L"," ", "B"," ", "O"," ", "S"," ", "T"," ", "A"," ", "C", "", "K"];
+    let matrix = str.sort();
+    let font = 10;
+    let col = width / font;
+    let arr = [];
 
-const draw = () => {
-    ctx.fillStyle = "rgba(0,0,0,0.05)";
-    ctx.fillRect(0, 0, width, height);
-    ctx.fillStyle = "#9400D3"; /* #4B0082 - #0000FF - #00FF00 - #FFFF00 - #FF7F00 - #FF0000 */
-    ctx.font = `${font}px system-ui`;
+    for (let i = 0; i < col; i++) {
+        arr[i] = 1;
+    }
 
-    for(let i = 0; i < arr.length; i++) {
-        let txt = matrix[Math.floor(Math.random() * matrix.length)];
-        ctx.fillText(txt, i * font, arr[i] * font);
+    function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = "#9400D3";
+        ctx.font = `${font}px system-iu`;
 
-        if(arr[i] * font > height && Math.random() > 0.975) {
-            arr[i] = 0;      
+        for (let i = 0; i < arr.length; i++) {
+            let txt = matrix[Math.floor(Math.random() * matrix.length)];
+            ctx.fillText(txt, i * font, arr[i] * font);
+
+            if (arr[i] * font > height && Math.random() > 0.975) {
+                arr[i] = 0;
+            }
+
+            arr[i]++;
         }
 
-        arr[i]++;
+        requestAnimationFrame(draw);
     }
+
+    // Inicia la animación automáticamente
+    draw();
+
+    window.addEventListener("resize", function() {
+        // Reinicia la animación en caso de cambio de tamaño de la ventana
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        arr = arr.map(() => 1); // Reinicia las posiciones verticales
+    });
 }
-
-setInterval(draw, 15);
-
-window.addEventListener("resize", () => location.reload());
-
-
