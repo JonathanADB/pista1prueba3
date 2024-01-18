@@ -5,7 +5,7 @@ let audioPlayed = false;
 
 document.addEventListener("DOMContentLoaded", function() {
     // Muestra un mensaje para indicar que se requiere la interacción del usuario
-    alert("¡Haga clic en cualquier lugar para reproducir el audio!");
+    alert("¡Haga clic en cualquier lugar de la pantalla para reproducir el audio!");
 
     // Inicia la animación del canvas automáticamente
     startMatrixAnimation();
@@ -21,17 +21,40 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Función para reproducir el audio
 function playAudio() {
-    let miAudio = new Audio("galeria/jm_fx_matrix-sound-01-19778.mp3");
-    miAudio.loop = true;
-    miAudio.preload = "auto";
+    let miAudio = document.getElementById("miAudio");
+    let sources = miAudio.getElementsByTagName("source");
 
-    miAudio.addEventListener("canplaythrough", function() {
-        miAudio.play();
-        // Marca que el audio ha sido reproducido
-        audioPlayed = true;
-    });
+     // Intenta cargar y reproducir la primera fuente de audio compatible
+     for (let i = 0; i < sources.length; i++) {
+        let source = sources[i];
+        let audioType = source.type;
+        let audioSrc = source.src;
+
+        let audio = new Audio();
+        audio.src = audioSrc;
+        audio.type = audioType;
+        audio.loop = true;
+        audio.preload = "auto";
+
+        // Intenta cargar el audio
+        audio.load();
+
+        // Escucha el evento 'canplaythrough' para reproducir cuando esté listo
+        audio.addEventListener("canplaythrough", function() {
+            audio.play();
+            // Marca que el audio ha sido reproducido
+            audioPlayed = true;
+        });
+
+        // Sale del bucle si el audio se ha reproducido exitosamente
+        if (audioPlayed) {
+            break;
+        }
+    }
 }
 
+
+//funcion para iniciar canva
 function startMatrixAnimation() {
     let canvas = document.querySelector("canvas");
     let ctx = canvas.getContext("2d");
