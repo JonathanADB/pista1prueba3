@@ -1,17 +1,30 @@
- "use strict"
- // Espera a que el documento esté completamente cargado
+"use strict";
+
 document.addEventListener("DOMContentLoaded", function() {
+    // Muestra un mensaje para indicar que se requiere la interacción del usuario
+    alert("¡Haga clic en cualquier lugar para reproducir el audio!");
+
     // Inicia la animación del canvas automáticamente
     startMatrixAnimation();
 
-    // Reproduce el audio cuando esté disponible y cargado
-    let miAudio = new Audio("galeria/jm_fx_matrix-sound-01-19778.mp3");
-    miAudio.loop = true;
-    miAudio.preload = "auto";
-
-    miAudio.addEventListener("canplaythrough", function() {
-        miAudio.play();
+    // Reproduce el audio cuando el usuario hace clic o toca
+    document.addEventListener("pointerup", function() {
+        // Reproduce el audio solo si no se ha reproducido previamente
+        if (!miAudio.played.some((time) => time > 0)) {
+            miAudio.play();
+        }
     });
+});
+
+// Crea el objeto de audio
+let miAudio = new Audio("galeria/jm_fx_matrix-sound-01-19778.mp3");
+miAudio.loop = true;
+miAudio.preload = "auto";
+
+miAudio.addEventListener("canplaythrough", function() {
+    // No inicia la reproducción aquí, solo cuando el usuario hace clic o toca
+    // Esto es para cumplir con las políticas de reproducción automática
+    miAudio.play();
 });
 
 function startMatrixAnimation() {
@@ -19,7 +32,7 @@ function startMatrixAnimation() {
     let ctx = canvas.getContext("2d");
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
-    let str = ["B", " ", "I", " ", "L"," ", "B"," ", "O"," ", "S"," ", "T"," ", "A"," ", "C", "", "K"];
+    let str = ["B", " ", "I", " ", "L", " ", "B", " ", "O", " ", "S", " ", "T", " ", "A", " ", "C", "", "K"];
     let matrix = str.sort();
     let font = 10;
     let col = width / font;
