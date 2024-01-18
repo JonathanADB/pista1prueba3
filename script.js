@@ -1,5 +1,8 @@
 "use strict";
 
+// Variable para rastrear si el audio ya se reprodujo
+let audioPlayed = false;
+
 document.addEventListener("DOMContentLoaded", function() {
     // Muestra un mensaje para indicar que se requiere la interacción del usuario
     alert("¡Haga clic en cualquier lugar para reproducir el audio!");
@@ -10,22 +13,24 @@ document.addEventListener("DOMContentLoaded", function() {
     // Reproduce el audio cuando el usuario hace clic o toca
     document.addEventListener("pointerup", function() {
         // Reproduce el audio solo si no se ha reproducido previamente
-        if (!miAudio.played.some((time) => time > 0)) {
-            miAudio.play();
+        if (!audioPlayed) {
+            playAudio();
         }
     });
 });
 
-// Crea el objeto de audio
-let miAudio = new Audio("galeria/jm_fx_matrix-sound-01-19778.mp3");
-miAudio.loop = true;
-miAudio.preload = "auto";
+// Función para reproducir el audio
+function playAudio() {
+    let miAudio = new Audio("galeria/jm_fx_matrix-sound-01-19778.mp3");
+    miAudio.loop = true;
+    miAudio.preload = "auto";
 
-miAudio.addEventListener("canplaythrough", function() {
-    // No inicia la reproducción aquí, solo cuando el usuario hace clic o toca
-    // Esto es para cumplir con las políticas de reproducción automática
-    miAudio.play();
-});
+    miAudio.addEventListener("canplaythrough", function() {
+        miAudio.play();
+        // Marca que el audio ha sido reproducido
+        audioPlayed = true;
+    });
+}
 
 function startMatrixAnimation() {
     let canvas = document.querySelector("canvas");
