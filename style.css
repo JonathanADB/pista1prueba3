@@ -87,3 +87,10 @@ h1{
        
     }
 }
+
+@media screen and (max-height: 400px) {
+   body {
+    height: 100%;
+    width: 100%;
+   }
+}
