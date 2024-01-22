@@ -5,7 +5,7 @@ let audioPlayed = false;
 
 document.addEventListener("DOMContentLoaded", function() {
     // Muestra un mensaje para indicar que se requiere la interacción del usuario
-    alert("¡Haga clic en cualquier lugar de la pantalla para reproducir el audio!");
+    alert("¡Pulse ok y presiona la pantala para activar el audio!");
 
     // Inicia la animación del canvas automáticamente
     startMatrixAnimation();
