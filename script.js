@@ -55,29 +55,36 @@ function playAudio() {
 
 
 //funcion para iniciar canva
+
+
 function startMatrixAnimation() {
-    let canvas = document.querySelector("canvas");
-    let ctx = canvas.getContext("2d");
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
-    let str = ["B", " ", "I", " ", "L", " ", "B", " ", "O", " ", "S", " ", "T", " ", "A", " ", "C", "", "K"];
-    let matrix = str.sort();
-    let font = 10;
-    let col = width / font;
+    const font = 10;
+    const col = width / font;
     let arr = [];
+    
+    const str = ["B", " ", "I", " ", "L", " ", "B", " ", "O", " ", "S", " ", "T", " ", "A", " ", "C", " ", "K"];
+    let matrix = shuffleArray(str.slice()); // Copia y mezcla la matriz original
 
     for (let i = 0; i < col; i++) {
-        arr[i] = 1;
+        arr[i] = Math.floor(Math.random() * height / font);
+    }
+
+    function shuffleArray(array) {
+        return array.slice().sort(() => Math.random() - 0.5);
     }
 
     function draw() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
         ctx.fillRect(0, 0, width, height);
-        ctx.fillStyle = "#9400D3";
-        ctx.font = `${font}px system-iu`;
+        ctx.fillStyle = "#E129FF";
+        ctx.font = "${font}px system-ui";
 
         for (let i = 0; i < arr.length; i++) {
-            let txt = matrix[Math.floor(Math.random() * matrix.length)];
+            const txt = matrix[Math.floor(Math.random() * matrix.length)];
             ctx.fillText(txt, i * font, arr[i] * font);
 
             if (arr[i] * font > height && Math.random() > 0.975) {
@@ -86,17 +93,19 @@ function startMatrixAnimation() {
 
             arr[i]++;
         }
-
-        requestAnimationFrame(draw);
     }
 
-    // Inicia la animación automáticamente
-    draw();
-
-    window.addEventListener("resize", function() {
-        // Reinicia la animación en caso de cambio de tamaño de la ventana
+    function handleResize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
-        arr = arr.map(() => 1); // Reinicia las posiciones verticales
-    });
+        col = width / font;
+        arr = arr.map(() => Math.floor(Math.random() * height / font));
+        draw();
+    }
+
+    setInterval(draw, 50);
+    window.addEventListener("resize", handleResize);
 }
+
+startMatrixAnimation();
+
