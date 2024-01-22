@@ -54,8 +54,8 @@ const initializeCanvas = () => {
 const draw = () => {
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, width, height);
-    ctx.fillStyle = "#ABDB2A";
-    ctx.font = `${font}px system-ui`;
+    ctx.fillStyle = "#E129FF";
+    ctx.font = "${font}px system-ui";
 
     for (let i = 0; i < arr.length; i++) {
         let txt = matrix[Math.floor(Math.random() * matrix.length)];
