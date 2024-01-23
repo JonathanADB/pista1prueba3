@@ -7,8 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Muestra un mensaje para indicar que se requiere la interacción del usuario
     alert("¡Haga clic en cualquier lugar de la pantalla luego de cerrar esta pestaña para reproducir el audio!");
 
-    // Inicia la animación del canvas automáticamente
-    startMatrixAnimation();
+    
 
     // Reproduce el audio cuando el usuario hace clic o toca
     document.addEventListener("pointerup", function() {
