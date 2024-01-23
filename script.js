@@ -24,8 +24,7 @@ function playAudio() {
     let miAudio = document.getElementById("miAudio");
     let sources = miAudio.getElementsByTagName("source");
 
-     // Intenta cargar y reproducir la primera fuente de audio compatible
-     for (let i = 0; i < sources.length; i++) {
+    for (let i = 0; i < sources.length; i++) {
         let source = sources[i];
         let audioType = source.type;
         let audioSrc = source.src;
@@ -36,67 +35,62 @@ function playAudio() {
         audio.loop = true;
         audio.preload = "auto";
 
-        // Intenta cargar el audio
-        audio.load();
+        try {
+            audio.load();
+            audio.addEventListener("canplaythrough", function() {
+                audio.play();
+                audioPlayed = true;
+            });
+            
+            audio.addEventListener("error", function(error) {
+                console.error("Error al cargar o reproducir audio:", error);
+            });
 
-        // Escucha el evento 'canplaythrough' para reproducir cuando esté listo
-        audio.addEventListener("canplaythrough", function() {
-            audio.play();
-            // Marca que el audio ha sido reproducido
-            audioPlayed = true;
-        });
-
-        // Sale del bucle si el audio se ha reproducido exitosamente
-        if (audioPlayed) {
-            break;
+            // Sal del bucle si el audio se ha reproducido exitosamente
+            if (audioPlayed) {
+                break;
+            }
+        } catch (error) {
+            console.error("Error al cargar audio:", error);
         }
     }
 }
-
 
 //funcion para iniciar canva
-function startMatrixAnimation() {
-    let canvas = document.querySelector("canvas");
-    let ctx = canvas.getContext("2d");
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-    let str = ["B", " ", "I", " ", "L", " ", "B", " ", "O", " ", "S", " ", "T", " ", "A", " ", "C", "", "K"];
-    let matrix = str.sort();
-    let font = 10;
-    let col = width / font;
-    let arr = [];
 
-    for (let i = 0; i < col; i++) {
-        arr[i] = 1;
-    }
+let canvas = document.querySelector("canvas");
 
-    function draw() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, width, height);
-        ctx.fillStyle = "#9400D3";
-        ctx.font = `${font}px system-iu`;
+let ctx = canvas.getContext("2d"); 
+let width = canvas.width = window.innerWidth;
+let height = canvas.height = window.innerHeight;
+let str = ["B", " ", "I", " ", "L"," ", "B"," ", "O"," ", "S"," ", "T"," ", "A"," ", "C", "", "K"];
+let matrix = str.sort();
+let font = 5;
+let col = width / font;
+let arr = [];
 
-        for (let i = 0; i < arr.length; i++) {
-            let txt = matrix[Math.floor(Math.random() * matrix.length)];
-            ctx.fillText(txt, i * font, arr[i] * font);
+for(let i = 0; i < col; i++) {
+    arr[i] = 1;
+}
 
-            if (arr[i] * font > height && Math.random() > 0.975) {
-                arr[i] = 0;
-            }
+const draw = () => {
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = "#E129FF"; 
+    ctx.font = `$(font)px system-iu`;
 
-            arr[i]++;
+    for(let i = 0; i < arr.length; i++) {
+        let txt = matrix[Math.floor(Math.random()  * matrix.length)];
+        ctx.fillText(txt, i * font, arr[i] * font);
+
+        if(arr[i] * font > height && Math.random() > 0.975) {
+            arr[i] = 0;
         }
 
-        requestAnimationFrame(draw);
+        arr[i]++;
     }
-
-    // Inicia la animación automáticamente
-    draw();
-
-    window.addEventListener("resize", function() {
-        // Reinicia la animación en caso de cambio de tamaño de la ventana
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-        arr = arr.map(() => 1); // Reinicia las posiciones verticales
-    });
 }
+
+setInterval(draw, 15);
+
+window.addEventListener("resize", () => location.reload());
